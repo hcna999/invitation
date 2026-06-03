@@ -158,8 +158,8 @@ const closeRsvp = document.querySelector('.close-rsvp');
 const rsvpForm = document.getElementById('rsvp-form');
 const submitBtn = document.getElementById('submit-btn');
 
-// 구글 스프레드시트 앱스 스크립트 Web App URL
-const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz2V1zOyrmfbfAxZxGuOdhsGT7H8YRkGAltT6lhhQ6CxbUVZvE1AhFyCffFYyEz0ag/exec"; 
+// Formspree API URL
+const FORMSPREE_URL = "https://formspree.io/f/mzdqpjlv"; 
 
 if (rsvpBtn && rsvpModal && closeRsvp) {
     rsvpBtn.addEventListener('click', () => {
@@ -178,32 +178,30 @@ if (rsvpBtn && rsvpModal && closeRsvp) {
 if (rsvpForm) {
     rsvpForm.addEventListener('submit', e => {
         e.preventDefault();
-        
-        if (!GOOGLE_SCRIPT_URL) {
-            alert('아직 구글 스프레드시트가 연결되지 않았습니다!\n(스크립트 URL 입력이 필요합니다)');
-            return;
-        }
 
         submitBtn.innerText = '전송 중...';
         submitBtn.disabled = true;
 
         const formData = new FormData(rsvpForm);
-        const urlEncodedData = new URLSearchParams(formData).toString();
         
-        fetch(GOOGLE_SCRIPT_URL, {
+        fetch(FORMSPREE_URL, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
+                'Accept': 'application/json'
             },
-            body: urlEncodedData
+            body: formData
         })
         .then(response => {
-            alert('소중한 마음이 잘 전달되었습니다. 감사합니다!');
-            rsvpModal.style.display = 'none';
-            rsvpForm.reset();
+            if (response.ok) {
+                alert('소중한 마음이 잘 전달되었습니다. 감사합니다!');
+                rsvpModal.style.display = 'none';
+                rsvpForm.reset();
+            } else {
+                alert('전송에 실패했습니다. 입력 항목을 다시 확인해 주세요.');
+            }
         })
         .catch(error => {
-            alert('전송에 실패했습니다. (설정 또는 네트워크 오류)');
+            alert('인터넷 연결 오류로 전송에 실패했습니다.');
             console.error('Error!', error);
         })
         .finally(() => {
