@@ -366,7 +366,7 @@ function createFallingHeart() {
     heart.style.left = `${startPos}%`;
     heart.style.animationDuration = `${duration}s`;
     heart.style.fontSize = `${size}px`;
-    heart.style.color = `rgba(255, 255, 255, ${opacity})`;
+    heart.style.color = `rgba(255, 182, 193, ${opacity})`;
 
     container.appendChild(heart);
 
