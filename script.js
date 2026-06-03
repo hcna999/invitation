@@ -158,6 +158,8 @@ const closeRsvp = document.querySelector('.close-rsvp');
 const rsvpForm = document.getElementById('rsvp-form');
 const submitBtn = document.getElementById('submit-btn');
 const guestbookMessages = document.getElementById('guestbook-messages');
+const guestbookForm = document.getElementById('guestbook-form');
+const gbSubmitBtn = document.getElementById('guestbook-submit-btn');
 
 // 구글 스프레드시트 Web App URL
 const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzA52K_ElrNdar11nP-_cPmXTH53OlMX2Tb30ftBSAL4IXsAEUh0KQrtHKCVAcwT1c/exec"; 
@@ -185,13 +187,15 @@ function loadGuestbook() {
                     
                     const card = document.createElement('div');
                     card.className = 'message-card';
-                    // XSS 방지를 위해 textContent 활용 또는 단순 이스케이프 (여기선 안전하게 텍스트만)
-                    const safeName = msg.name.replace(/</g, "&lt;").replace(/>/g, "&gt;");
-                    const safeSide = msg.side.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+                    
+                    const safeName = msg.name ? msg.name.replace(/</g, "&lt;").replace(/>/g, "&gt;") : "익명";
+                    const safeSide = msg.side ? msg.side.replace(/</g, "&lt;").replace(/>/g, "&gt;") : "";
                     const safeMsg = msg.message.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\n/g, '<br>');
                     
+                    const sideHtml = safeSide ? ` <span style="font-size:11px; color:#d19b75; font-weight:normal;">(${safeSide})</span>` : '';
+                    
                     card.innerHTML = `
-                        <p class="msg-author">${safeName} <span style="font-size:11px; color:#d19b75; font-weight:normal;">(${safeSide})</span></p>
+                        <p class="msg-author">${safeName}${sideHtml}</p>
                         <p class="msg-text">${safeMsg}</p>
                         <p class="msg-date">${dateStr}</p>
                     `;
@@ -210,7 +214,42 @@ function loadGuestbook() {
 // 1-1) 초기 로딩 시 호출
 loadGuestbook();
 
-// 2) 팝업 모달 열기/닫기
+// 2) 방명록 폼 전송 (POST - 이름, 내용만 전송)
+if (guestbookForm) {
+    guestbookForm.addEventListener('submit', e => {
+        e.preventDefault();
+
+        gbSubmitBtn.innerText = '등록 중...';
+        gbSubmitBtn.disabled = true;
+
+        const formData = new FormData(guestbookForm);
+        const urlEncodedData = new URLSearchParams(formData).toString();
+        
+        fetch(GOOGLE_SCRIPT_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: urlEncodedData
+        })
+        .then(response => {
+            alert('방명록 메시지가 등록되었습니다. 감사합니다!');
+            guestbookForm.reset();
+            // 전송 완료 후 방명록 즉시 새로고침
+            loadGuestbook();
+        })
+        .catch(error => {
+            alert('등록에 실패했습니다. 인터넷 연결을 확인해 주세요.');
+            console.error('Error!', error);
+        })
+        .finally(() => {
+            gbSubmitBtn.innerText = '메시지 남기기';
+            gbSubmitBtn.disabled = false;
+        });
+    });
+}
+
+// 3) 팝업 모달 열기/닫기 (참석여부)
 if (rsvpBtn && rsvpModal && closeRsvp) {
     rsvpBtn.addEventListener('click', () => {
         rsvpModal.style.display = 'block';
@@ -225,7 +264,7 @@ if (rsvpBtn && rsvpModal && closeRsvp) {
     });
 }
 
-// 3) RSVP 폼 전송 (POST)
+// 4) RSVP 폼 전송 (POST - 구분, 이름, 참석여부, 동행인)
 if (rsvpForm) {
     rsvpForm.addEventListener('submit', e => {
         e.preventDefault();
@@ -244,12 +283,9 @@ if (rsvpForm) {
             body: urlEncodedData
         })
         .then(response => {
-            alert('소중한 마음이 잘 전달되었습니다. 감사합니다!');
+            alert('참석 여부가 성공적으로 전달되었습니다. 감사합니다!');
             rsvpModal.style.display = 'none';
             rsvpForm.reset();
-            
-            // 전송 완료 후 방명록 즉시 새로고침
-            loadGuestbook();
         })
         .catch(error => {
             alert('전송에 실패했습니다. 인터넷 연결을 확인해 주세요.');
