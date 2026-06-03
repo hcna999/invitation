@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="style.css">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Noto+Serif+KR:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- Fancybox CSS for perfect swipe gallery -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css" />
 </head>
 <body>
 
@@ -71,11 +73,7 @@
         </div>
     </section>
 
-    <!-- 사진 확대 모달 -->
-    <div id="image-modal" class="modal">
-        <span class="close-modal">&times;</span>
-        <img class="modal-content" id="modal-img">
-    </div>
+
 
     <!-- 4 page: 오시는 길 -->
     <section id="location" class="section location-section fade-in">
@@ -221,19 +219,18 @@
     </section>
 
     <!-- 6 page: AI Credit -->
-    <section id="ai-credit" class="section fade-in" style="padding-top: 10px; padding-bottom: 40px;">
-        <div style="background-color: #fff9f2; border-radius: 12px; padding: 25px 10px; text-align: center; border: 1px solid #eaddd3; margin: 0 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.04);">
-            <p style="color: #4a3d34; font-size: 15px; line-height: 1.7; margin: 0; word-break: keep-all;">
-                이 청첩장은 신랑신부가<br>
-                생성형 AI의 도움을 받아<br>직접 만들었습니다 ✨
-            </p>
-        </div>
+    <section id="ai-credit" style="padding: 20px 0 40px 0; text-align: center;">
+        <p style="color: #bbb; font-size: 11px; margin: 0;">
+            이 모바일 청첩장은 신랑신부가 생성형 AI 툴을 활용하여 제작하였습니다.
+        </p>
     </section>
 
     <footer class="footer">
         <p>나학채 &amp; 노영아의 모바일 청첩장</p>
     </footer>
 
+    <!-- Fancybox JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

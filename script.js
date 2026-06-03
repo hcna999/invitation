@@ -15,91 +15,29 @@ document.addEventListener("DOMContentLoaded", function() {
 
     fadeElements.forEach(el => observer.observe(el));
 
-    // 2. Gallery Modal Slider
-    const modal = document.getElementById("image-modal");
-    const modalImg = document.getElementById("modal-img");
-    const galleryItems = Array.from(document.querySelectorAll(".gallery-item"));
-    const closeModal = document.querySelector(".close-modal");
-    
-    let currentIndex = 0;
-
-    function showImage(index, direction = 'next') {
-        if (index < 0) index = galleryItems.length - 1;
-        if (index >= galleryItems.length) index = 0;
-        currentIndex = index;
-        
-        // 드래그로 변경된 인라인 스타일 초기화
-        modalImg.style.transform = '';
-        modalImg.style.transition = '';
-        
-        // 애니메이션 초기화 후 재시작 (Reflow 트릭)
-        modalImg.classList.remove('slide-in-right', 'slide-in-left');
-        void modalImg.offsetWidth;
-        
-        // 스와이프 방향에 따른 애니메이션 클래스 추가
-        if (direction === 'next') {
-            modalImg.classList.add('slide-in-right');
-        } else {
-            modalImg.classList.add('slide-in-left');
-        }
-
-        modalImg.src = galleryItems[currentIndex].src;
-    }
+    // 2. Gallery Modal Slider (Using Fancybox for perfect mobile swipe)
+    const galleryItems = document.querySelectorAll(".gallery-item");
+    const fancyboxImages = Array.from(galleryItems).map(item => ({
+        src: item.src,
+        type: "image"
+    }));
 
     galleryItems.forEach((item, index) => {
         item.addEventListener("click", function() {
-            modal.style.display = "block";
-            showImage(index, 'next');
+            Fancybox.show(fancyboxImages, {
+                startIndex: index,
+                Toolbar: {
+                    display: {
+                        left: ["infobar"],
+                        middle: [],
+                        right: ["close"],
+                    },
+                },
+                Images: {
+                    zoom: true,
+                }
+            });
         });
-    });
-
-    closeModal.addEventListener("click", function() {
-        modal.style.display = "none";
-    });
-
-    window.addEventListener("click", function(event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
-        }
-    });
-
-    // Touch events for swiping (Interactive Slide)
-    let touchStartX = 0;
-    let isDragging = false;
-
-    modalImg.addEventListener('touchstart', e => {
-        touchStartX = e.changedTouches[0].screenX;
-        isDragging = true;
-        modalImg.style.transition = 'none'; // 드래그 중 부드러운 움직임을 위해 트랜지션 끄기
-        modalImg.classList.remove('slide-in-right', 'slide-in-left'); // 기존 애니메이션 해제
-    });
-
-    modalImg.addEventListener('touchmove', e => {
-        if (!isDragging) return;
-        const currentX = e.changedTouches[0].screenX;
-        const deltaX = currentX - touchStartX;
-        modalImg.style.transform = `translateX(${deltaX}px)`; // 손가락 따라 사진 이동
-    });
-
-    modalImg.addEventListener('touchend', e => {
-        if (!isDragging) return;
-        isDragging = false;
-        
-        const touchEndX = e.changedTouches[0].screenX;
-        const deltaX = touchEndX - touchStartX;
-        const swipeThreshold = 50; // 이만큼 움직여야 넘어감
-        
-        if (deltaX < -swipeThreshold) {
-            // 왼쪽으로 스와이프 (다음 사진)
-            showImage(currentIndex + 1, 'next');
-        } else if (deltaX > swipeThreshold) {
-            // 오른쪽으로 스와이프 (이전 사진)
-            showImage(currentIndex - 1, 'prev');
-        } else {
-            // 원위치 복귀 (조금만 움직였을 때)
-            modalImg.style.transition = 'transform 0.3s ease-out';
-            modalImg.style.transform = 'translateX(0)';
-        }
     });
 
     // 3. Accordion for Account Numbers
