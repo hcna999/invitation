@@ -188,10 +188,14 @@ if (rsvpForm) {
         submitBtn.disabled = true;
 
         const formData = new FormData(rsvpForm);
+        const urlEncodedData = new URLSearchParams(formData).toString();
         
         fetch(GOOGLE_SCRIPT_URL, {
             method: 'POST',
-            body: formData
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: urlEncodedData
         })
         .then(response => {
             alert('소중한 마음이 잘 전달되었습니다. 감사합니다!');
@@ -199,8 +203,8 @@ if (rsvpForm) {
             rsvpForm.reset();
         })
         .catch(error => {
-            alert('전송에 실패했습니다. 다시 시도해 주세요.');
-            console.error('Error!', error.message);
+            alert('전송에 실패했습니다. (설정 또는 네트워크 오류)');
+            console.error('Error!', error);
         })
         .finally(() => {
             submitBtn.innerText = '전송하기';
