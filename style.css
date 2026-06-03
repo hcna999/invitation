@@ -194,8 +194,11 @@ body {
 .modal-content {
     margin: auto;
     display: block;
-    max-width: 90%;
-    max-height: 90%;
+    width: 100%;
+    max-width: 700px;
+    touch-action: pan-y; /* 모바일에서 더블 탭으로 인한 화면 확대 방지 */
+    user-select: none;
+    -webkit-user-select: none;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -532,4 +535,9 @@ body {
     background-color: #eee;
     color: #888;
     font-size: 12px;
+}
+.ai-credit {
+    margin-top: 10px;
+    color: #aaa;
+    font-size: 11px;
 }
