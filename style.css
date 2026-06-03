@@ -849,3 +849,34 @@ body {
 .msg-delete-btn:hover {
     color: #d9534f;
 }
+
+/* Falling Hearts Effect */
+#falling-hearts-container {
+    position: relative;
+    overflow: hidden;
+}
+.falling-heart {
+    position: absolute;
+    top: -10%;
+    color: rgba(255, 255, 255, 0.6); /* 반투명 화이트 하트 */
+    user-select: none;
+    pointer-events: none;
+    animation: fall linear forwards;
+    z-index: 10;
+}
+@keyframes fall {
+    0% {
+        transform: translateY(0) rotate(0deg) scale(0.8);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    80% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(100vh) rotate(360deg) scale(1.2);
+        opacity: 0;
+    }
+}

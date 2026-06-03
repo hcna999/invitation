@@ -347,3 +347,34 @@ function deleteMessage(timestamp) {
         delBtns.forEach(btn => btn.disabled = false);
     });
 }
+
+// 6) 메인 화면 인터랙티브 효과 (하트 내리기)
+function createFallingHeart() {
+    const container = document.getElementById('falling-hearts-container');
+    if (!container) return;
+
+    const heart = document.createElement('div');
+    heart.innerHTML = '♥';
+    heart.className = 'falling-heart';
+    
+    // 무작위 위치 및 애니메이션 속성
+    const startPos = Math.random() * 100; // 0 ~ 100% 가로 위치
+    const duration = Math.random() * 4 + 4; // 4초 ~ 8초 사이로 천천히 떨어짐
+    const size = Math.random() * 6 + 10; // 10px ~ 16px 크기
+    const opacity = Math.random() * 0.4 + 0.3; // 0.3 ~ 0.7 투명도
+
+    heart.style.left = `${startPos}%`;
+    heart.style.animationDuration = `${duration}s`;
+    heart.style.fontSize = `${size}px`;
+    heart.style.color = `rgba(255, 255, 255, ${opacity})`;
+
+    container.appendChild(heart);
+
+    // 애니메이션이 끝나면 DOM에서 제거
+    setTimeout(() => {
+        heart.remove();
+    }, duration * 1000);
+}
+
+// 0.8초마다 하트 하나씩 생성
+setInterval(createFallingHeart, 800);
