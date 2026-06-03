@@ -858,7 +858,7 @@ body {
 .falling-heart {
     position: absolute;
     top: -10%;
-    color: rgba(255, 120, 150, 0.8); /* 선명한 핑크색 하트 */
+    color: rgba(255, 170, 190, 0.6); /* 파스텔 핑크색 하트 */
     user-select: none;
     pointer-events: none;
     animation: fall linear forwards;
