@@ -315,9 +315,28 @@
 
     <!-- 6 page: 방명록 및 참석여부 (RSVP) -->
     <section id="rsvp" class="section rsvp-section fade-in">
-        <h3 class="section-title">RSVP</h3>
+        <h3 class="section-title">참석 여부 및 방명록</h3>
         <p class="rsvp-desc">축하해 주시는 모든 분들께 감사드립니다.<br>원활한 예식 진행을 위해 참석 여부를 전달해 주시면<br>큰 도움이 됩니다.</p>
         <button class="rsvp-open-btn" id="rsvp-btn">참석 의사 전달하기</button>
+
+        <!-- 방명록 게시판 영역 -->
+        <div class="guestbook-board" style="margin-top: 50px; padding: 0 20px; text-align: left;">
+            <h4 style="color: #d19b75; font-size: 17px; margin-bottom: 15px; text-align: center;">♥ 축하 메시지 ♥</h4>
+            <div id="guestbook-messages" class="guestbook-messages">
+                <!-- 샘플 메시지 (추후 실시간 데이터로 교체됨) -->
+                <div class="message-card">
+                    <p class="msg-author">홍길동</p>
+                    <p class="msg-text">두 분의 결혼을 진심으로 축하드립니다! 언제나 지금처럼 예쁘게 사랑하며 행복하게 잘 사세요~</p>
+                    <p class="msg-date">2026.09.15</p>
+                </div>
+                <div class="message-card">
+                    <p class="msg-author">김친구</p>
+                    <p class="msg-text">우리 영아 드디어 가는구나! 너무너무 축하해 평생 꽃길만 걷자🌸</p>
+                    <p class="msg-date">2026.09.16</p>
+                </div>
+            </div>
+            <p style="font-size: 11px; color: #aaa; margin-top: 15px; text-align: center;">* 남겨주신 메시지는 여기에 표시됩니다.</p>
+        </div>
     </section>
 
     <!-- RSVP Modal -->
