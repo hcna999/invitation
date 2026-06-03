@@ -539,3 +539,105 @@ body {
     color: #aaa;
     font-size: 11px;
 }
+
+/* Calendar Styles */
+.calendar-container {
+    margin: 30px 0;
+    padding: 25px 15px;
+    background: #fbf8f4;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+}
+.calendar-header {
+    font-family: 'Noto Serif KR', serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: #4a3d34;
+    margin-bottom: 15px;
+    text-align: center;
+}
+.calendar-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+    font-size: 14px;
+}
+.calendar-table th {
+    padding: 10px 0;
+    font-weight: 600;
+    color: #666;
+    border-bottom: 1px solid #eaddd3;
+}
+.calendar-table td {
+    padding: 12px 0;
+    color: #444;
+}
+.calendar-table th.sun, .calendar-table td.sun {
+    color: #d9534f;
+}
+.calendar-table th.sat, .calendar-table td.sat {
+    color: #4a90e2;
+}
+.d-day-highlight {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 28px;
+    height: 28px;
+    background-color: #d9534f;
+    color: white !important;
+    border-radius: 50%;
+    font-weight: bold;
+    box-shadow: 0 2px 5px rgba(217, 83, 79, 0.4);
+}
+
+/* Countdown Styles */
+.countdown-container {
+    margin: 30px 0 40px 0;
+}
+.countdown-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: #8c6e57;
+    margin-bottom: 15px;
+}
+.countdown-title .heart {
+    color: #d9534f;
+    font-size: 13px;
+    margin: 0 3px;
+}
+.countdown-timer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+.time-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 55px;
+    background: #fff;
+    padding: 12px 5px;
+    border-radius: 10px;
+    border: 1px solid #eaddd3;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+}
+.time-box span:first-child {
+    font-size: 22px;
+    font-weight: 600;
+    color: #4a3d34;
+    font-family: 'Noto Serif KR', serif;
+}
+.time-label {
+    font-size: 11px;
+    color: #aaa;
+    margin-top: 4px;
+    text-transform: uppercase;
+}
+.colon {
+    font-size: 20px;
+    color: #ccc;
+    font-weight: 300;
+    margin-top: -15px;
+}
