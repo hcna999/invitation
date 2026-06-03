@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>나학채 & 노영아 결혼합니다</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Noto+Serif+KR:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- 1 page: 대표사진 및 타이틀 -->
+    <section id="main" class="section main-section">
+        <div class="main-image-container">
+            <img src="대표사진.jpg" alt="대표사진" class="main-img">
+        </div>
+        <div class="main-text">
+            <h2>나학채 &amp; 노영아</h2>
+            <p>2026년 09월 20일 (일) 오후 2시</p>
+            <p>라도무스 3층 아트리움홀</p>
+        </div>
+        <div class="scroll-indicator">
+            <div class="arrow-down"></div>
+        </div>
+    </section>
+
+    <!-- 2 page: 인사말 + 일시 -->
+    <section id="greeting" class="section greeting-section fade-in">
+        <h3 class="section-title">초대합니다</h3>
+        <p class="greeting-text">
+            서로의 마음에 따스한 바람이 되어<br>
+            하나의 길을 함께 걸어가려 합니다.<br>
+            새로운 시작을 곁에서 축복해 주시면<br>
+            더없는 기쁨으로 간직하겠습니다.
+        </p>
+        
+        <div class="family-info">
+            <p><strong>나기복 · 전최숙</strong> 의 장남 <strong>나학채</strong></p>
+            <p><strong>노춘곤 · 故구숙희</strong> 의 장녀 <strong>노영아</strong></p>
+        </div>
+
+        <div class="date-time-box">
+            <h4>2026년 09월 20일 (일) 오후 2시</h4>
+            <p>라도무스 3층 아트리움홀</p>
+            
+            <button class="ai-schedule-btn" onclick="copySchedulePrompt()">📅 일정 추가하기 (복사)</button>
+            <p class="ai-desc">버튼을 눌러 복사한 뒤, 제미나이나 GPT에게 붙여넣기 하시면 캘린더에 일정을 추가해 줍니다.</p>
+        </div>
+    </section>
+
+    <!-- 3 page: 갤러리 -->
+    <section id="gallery" class="section gallery-section fade-in">
+        <h3 class="section-title">Gallery</h3>
+        <div class="gallery-grid">
+            <img src="갤러리 1.jpg" alt="갤러리사진" class="gallery-item">
+            <img src="갤러리 2.jpg" alt="갤러리사진" class="gallery-item">
+            <img src="갤러리 3.jpg" alt="갤러리사진" class="gallery-item">
+            <img src="갤러리 4.jpg" alt="갤러리사진" class="gallery-item">
+            <img src="갤러리 5.jpg" alt="갤러리사진" class="gallery-item">
+            <img src="갤러리 6.jpg" alt="갤러리사진" class="gallery-item">
+            <img src="갤러리 7.jpg" alt="갤러리사진" class="gallery-item">
+            <img src="갤러리 8.jpg" alt="갤러리사진" class="gallery-item">
+            <img src="갤러리 9.jpg" alt="갤러리사진" class="gallery-item">
+            <img src="갤러리 10.jpg" alt="갤러리사진" class="gallery-item">
+            <img src="갤러리 11.jpg" alt="갤러리사진" class="gallery-item">
+            <img src="갤러리 12.jpg" alt="갤러리사진" class="gallery-item">
+            <img src="갤러리 13.jpg" alt="갤러리사진" class="gallery-item">
+            <img src="갤러리 14.jpg" alt="갤러리사진" class="gallery-item">
+            <img src="갤러리 15.jpg" alt="갤러리사진" class="gallery-item">
+        </div>
+    </section>
+
+    <!-- 사진 확대 모달 -->
+    <div id="image-modal" class="modal">
+        <span class="close-modal">&times;</span>
+        <button class="modal-nav prev-btn">&#10094;</button>
+        <img class="modal-content" id="modal-img">
+        <button class="modal-nav next-btn">&#10095;</button>
+    </div>
+
+    <!-- 4 page: 오시는 길 -->
+    <section id="location" class="section location-section fade-in">
+        <h3 class="section-title">오시는 길</h3>
+        <p class="venue-name">라도무스 아트센터</p>
+        <p class="venue-address">대전광역시 유성구 동서대로 639 (원신흥동 578-6)<br>3층 아트리움홀</p>
+        
+        <div class="map-placeholder static-map-container">
+            <img src="지도/ladomus_map/라도무스약도_수정.jpg" class="static-map-img" alt="라도무스 약도">
+        </div>
+
+        <!-- 내비게이션 앱 연동 버튼 -->
+        <div class="nav-buttons">
+            <a href="https://map.kakao.com/link/search/라도무스 아트센터" target="_blank" class="nav-btn kakao-map">카카오지도</a>
+            <a href="https://map.naver.com/v5/search/라도무스 아트센터" target="_blank" class="nav-btn naver-map">네이버지도</a>
+            <a href="tmap://search?name=라도무스 아트센터" class="nav-btn t-map">티맵 (T map)</a>
+        </div>
+
+        <div class="transport-info">
+            <h4>주차안내</h4>
+            <p><strong>주차장:</strong> 주차타워(1F~6F) 및 야외 제2, 3, 4 주차장 이용 가능</p>
+            
+            <h4 style="margin-top:25px;">대중교통 안내</h4>
+            <div class="transport-accordion-container">
+                <button class="accordion transport-accordion">대전역 출발 <span class="time-est">약 45분</span></button>
+                <div class="panel">
+                    <div class="transport-panel-content">
+                        <div class="route-step">
+                            <span class="step-icon">탑승</span>
+                            <span class="step-text"><strong>지하철 1호선</strong> (반석행)</span>
+                        </div>
+                        <div class="route-step">
+                            <span class="step-icon">하차</span>
+                            <span class="step-text"><strong>유성온천역</strong> 6번 출구</span>
+                        </div>
+                        <div class="route-step">
+                            <span class="step-icon">환승</span>
+                            <span class="step-text"><strong>106, 706번</strong> 버스 또는 택시 이용</span>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="accordion transport-accordion">서대전역 출발 <span class="time-est">약 40분</span></button>
+                <div class="panel">
+                    <div class="transport-panel-content">
+                        <div class="route-step">
+                            <span class="step-icon">이동</span>
+                            <span class="step-text"><strong>오룡역 3번 출구</strong> 정류장으로 도보 이동</span>
+                        </div>
+                        <div class="route-step">
+                            <span class="step-icon">탑승</span>
+                            <span class="step-text"><strong>601번</strong> 버스 승차</span>
+                        </div>
+                        <div class="route-step">
+                            <span class="step-icon">하차</span>
+                            <span class="step-text"><strong>법원등기국</strong> 하차 후 이동</span>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="accordion transport-accordion">대전복합터미널 출발 <span class="time-est">약 43분</span></button>
+                <div class="panel">
+                    <div class="transport-panel-content">
+                        <div class="route-step">
+                            <span class="step-icon">탑승</span>
+                            <span class="step-text">터미널 앞 정류장에서 <strong>601번</strong> 버스 승차</span>
+                        </div>
+                        <div class="route-step">
+                            <span class="step-icon">하차</span>
+                            <span class="step-text"><strong>법원등기국</strong> 하차 후 이동</span>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="accordion transport-accordion">유성복합터미널 출발 <span class="time-est">약 22분</span></button>
+                <div class="panel">
+                    <div class="transport-panel-content">
+                        <div class="route-step">
+                            <span class="step-icon">탑승</span>
+                            <span class="step-text">구암동기점지 정류장에서 <strong>601번</strong> 버스 승차</span>
+                        </div>
+                        <div class="route-step">
+                            <span class="step-icon">하차</span>
+                            <span class="step-text"><strong>법원등기국 / 아이파크시티</strong> 하차</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5 page: 계좌번호 -->
+    <section id="account" class="section account-section fade-in">
+        <h3 class="section-title">마음 전하실 곳</h3>
+        <p class="account-desc">참석이 어려우신 분들을 위해<br>계좌번호를 기재하였습니다.<br>너른 양해 부탁드립니다.</p>
+        
+        <div class="account-container">
+            <!-- 신랑측 -->
+            <button class="accordion">신랑측 계좌번호 보기</button>
+            <div class="panel">
+                <div class="account-box">
+                    <div>
+                        <p class="bank-info">우리은행 1002-959-481327</p>
+                        <p class="account-name">신랑 나학채</p>
+                    </div>
+                    <button class="copy-btn" onclick="copyAccount('우리은행 1002-959-481327')">복사</button>
+                </div>
+                <div class="account-box">
+                    <div>
+                        <p class="bank-info">농협 447-12-109048</p>
+                        <p class="account-name">아버지 나기복</p>
+                    </div>
+                    <button class="copy-btn" onclick="copyAccount('농협 447-12-109048')">복사</button>
+                </div>
+                <div class="account-box">
+                    <div>
+                        <p class="bank-info">농협 179151-52-011401</p>
+                        <p class="account-name">어머니 전최숙</p>
+                    </div>
+                    <button class="copy-btn" onclick="copyAccount('농협 179151-52-011401')">복사</button>
+                </div>
+            </div>
+
+            <!-- 신부측 -->
+            <button class="accordion">신부측 계좌번호 보기</button>
+            <div class="panel">
+                <div class="account-box">
+                    <div>
+                        <p class="bank-info">하나은행 810-900000-04307</p>
+                        <p class="account-name">신부 노영아</p>
+                    </div>
+                    <button class="copy-btn" onclick="copyAccount('하나은행 810-900000-04307')">복사</button>
+                </div>
+                <div class="account-box">
+                    <div>
+                        <p class="bank-info">국민은행 651-21-0617073</p>
+                        <p class="account-name">아버지 노춘곤</p>
+                    </div>
+                    <button class="copy-btn" onclick="copyAccount('국민은행 651-21-0617073')">복사</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>나학채 &amp; 노영아의 모바일 청첩장</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

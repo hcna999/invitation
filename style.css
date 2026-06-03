@@ -1,0 +1,535 @@
+/* CSS Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Gowun Dodum', 'Noto Serif KR', serif;
+    color: #4a4a4a;
+    background-color: #fcfcfc;
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* Base Styles */
+.section {
+    padding: 60px 20px;
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.section-title {
+    font-size: 24px;
+    margin-bottom: 30px;
+    color: #5d5d5d;
+    font-weight: 400;
+    letter-spacing: 2px;
+}
+
+/* Animations */
+.fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* 1. Main Section */
+.main-section {
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.main-image-container {
+    width: 100%;
+    height: 70vh;
+    overflow: hidden;
+}
+
+/* 살짝 줌인되는 인터랙티브 효과 (Ken Burns) */
+.main-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    animation: zoomInOut 15s ease-in-out infinite alternate;
+}
+
+@keyframes zoomInOut {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.1); }
+}
+
+/* 텍스트가 아래에서 위로 부드럽게 나타나는 효과 */
+.main-text {
+    padding: 30px 20px;
+    animation: slideUpFade 1.5s ease-out forwards;
+    opacity: 0;
+}
+
+@keyframes slideUpFade {
+    0% { opacity: 0; transform: translateY(30px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+.main-text h2 {
+    font-size: 28px;
+    margin-bottom: 10px;
+    font-weight: 400;
+}
+
+.main-text p {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 5px;
+}
+
+/* 아래로 스크롤을 유도하는 통통 튀는 화살표 애니메이션 */
+.scroll-indicator {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: bounce 2s infinite;
+    opacity: 0;
+    animation-delay: 1.5s;
+    animation-fill-mode: forwards;
+}
+
+.arrow-down {
+    width: 15px;
+    height: 15px;
+    border-right: 2px solid #ccc;
+    border-bottom: 2px solid #ccc;
+    transform: rotate(45deg);
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateX(-50%) translateY(0);
+    }
+    40% {
+        transform: translateX(-50%) translateY(-10px);
+    }
+    60% {
+        transform: translateX(-50%) translateY(-5px);
+    }
+}
+
+/* 2. Greeting Section */
+.greeting-section {
+    background-color: #fffaf6;
+}
+
+.greeting-text {
+    font-size: 16px;
+    margin-bottom: 40px;
+    line-height: 2;
+}
+
+.family-info {
+    font-size: 18px;
+    margin-bottom: 40px;
+}
+
+.family-info p {
+    margin-bottom: 10px;
+}
+
+.date-time-box {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+.date-time-box h4 {
+    font-size: 18px;
+    color: #d19b75;
+    margin-bottom: 5px;
+}
+
+/* 3. Gallery Section */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5px;
+}
+
+.gallery-item {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.gallery-item:hover {
+    transform: scale(1.02);
+}
+
+/* Modal for Image Zoom */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+.modal-content {
+    margin: auto;
+    display: block;
+    max-width: 90%;
+    max-height: 90%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: zoom 0.3s;
+}
+
+@keyframes zoom {
+    from {transform: translate(-50%, -50%) scale(0.9)}
+    to {transform: translate(-50%, -50%) scale(1)}
+}
+
+.close-modal {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 1002;
+}
+
+.modal-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 40px;
+    cursor: pointer;
+    padding: 16px;
+    z-index: 1001;
+    user-select: none;
+    -webkit-user-select: none;
+    transition: 0.3s;
+}
+
+.modal-nav:hover {
+    color: #fff;
+    background-color: rgba(0,0,0,0.5);
+}
+
+.prev-btn {
+    left: 5px;
+}
+
+.next-btn {
+    right: 5px;
+}
+
+/* 4. Location Section */
+.location-section {
+    background-color: #f9f9f9;
+}
+
+.venue-name {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.venue-address {
+    font-size: 15px;
+    color: #888;
+    margin-bottom: 30px;
+}
+
+/* Map Image Container */
+.static-map-container {
+    width: 100%;
+    margin-bottom: 30px;
+    border-radius: 8px;
+    border: 1px solid #eaddd3;
+    background: #fff;
+    overflow: hidden;
+}
+
+.static-map-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    filter: saturate(0.4) sepia(0.2) hue-rotate(-5deg) opacity(0.9); /* 쨍한 색감을 부드러운 베이지/파스텔톤으로 변경 */
+}
+
+.transport-info {
+    text-align: left;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.transport-info h4 {
+    color: #d19b75;
+    margin-bottom: 5px;
+    margin-top: 15px;
+}
+.transport-info h4:first-child { margin-top: 0; }
+
+.transport-info p {
+    font-size: 14px;
+    color: #555;
+}
+
+.transport-accordion {
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid #f1ebd8;
+    color: #4a4a4a;
+    font-weight: 600;
+    padding: 10px 4px; /* 높이 대폭 슬림화 */
+    font-size: 15px;
+    border-radius: 0;
+    margin-bottom: 0;
+    display: flex;
+    justify-content: flex-start; /* 완벽한 좌측 정렬 */
+    align-items: center;
+}
+.transport-accordion.active, .transport-accordion:hover {
+    background-color: transparent;
+    color: #d19b75;
+}
+.transport-accordion::before {
+    content: '·';
+    color: #d19b75;
+    font-weight: bold;
+    margin-right: 6px;
+    font-size: 18px;
+}
+.transport-accordion .time-est {
+    color: #999;
+    font-weight: normal;
+    font-size: 13px;
+    background-color: transparent; /* 배지 디자인 제거 */
+    padding: 0;
+    margin-left: 6px; /* 텍스트 바로 옆에 붙임 */
+}
+.transport-accordion .time-est::before {
+    content: '(';
+}
+.transport-accordion .time-est::after {
+    content: ')';
+}
+.transport-accordion-container .panel {
+    background-color: #fcfbf9;
+    border-bottom: 1px solid #f1ebd8;
+    margin-bottom: 0;
+    border-radius: 0;
+}
+.transport-panel-content {
+    padding: 15px 15px 25px 15px;
+    text-align: left;
+}
+.route-step {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 12px;
+}
+.route-step:last-child {
+    margin-bottom: 0;
+}
+.step-icon {
+    display: inline-block;
+    background-color: #f1ebd8;
+    color: #a47b59;
+    font-size: 11px;
+    padding: 4px 8px;
+    border-radius: 4px;
+    margin-right: 12px;
+    font-weight: bold;
+    white-space: nowrap;
+    margin-top: 2px;
+}
+.step-text {
+    font-size: 14px;
+    color: #555;
+    line-height: 1.6;
+}
+.step-text strong {
+    color: #333;
+}
+
+/* 5. Account Section */
+.account-desc {
+    margin-bottom: 30px;
+    color: #777;
+}
+
+.account-container {
+    text-align: left;
+}
+
+.accordion {
+    background-color: #f1f1f1;
+    color: #444;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 16px;
+    transition: 0.4s;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    font-family: inherit;
+    display: flex;
+    justify-content: space-between;
+}
+
+.accordion:after {
+    content: '\002B';
+    color: #777;
+    font-weight: bold;
+    float: right;
+    margin-left: 5px;
+}
+
+.active:after {
+    content: "\2212";
+}
+
+.accordion.active, .accordion:hover {
+    background-color: #e2e2e2;
+}
+
+.panel {
+    padding: 0 18px;
+    background-color: white;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+    border-radius: 0 0 8px 8px;
+    margin-top: -10px;
+    margin-bottom: 15px;
+}
+
+.account-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+    border-bottom: 1px solid #eee;
+}
+.account-box:last-child { border-bottom: none; }
+
+.bank-info {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.account-name {
+    font-size: 14px;
+    color: #888;
+}
+
+.copy-btn {
+    background-color: #d19b75;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 13px;
+}
+
+/* AI Schedule Button */
+.ai-schedule-btn {
+    background-color: #5d5d5d;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 14px;
+    margin-top: 15px;
+    transition: 0.3s;
+}
+.ai-schedule-btn:hover { background-color: #333; }
+.ai-desc {
+    font-size: 12px;
+    color: #888;
+    margin-top: 8px;
+}
+
+/* Elderly Guide */
+.elderly-guide {
+    background-color: #fffaf6;
+    border: 1px solid #eaddd3;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    text-align: left;
+    font-size: 14px;
+    color: #555;
+    line-height: 1.8;
+}
+.elderly-guide p {
+    margin-bottom: 5px;
+}
+.guide-title {
+    font-weight: bold;
+    color: #d19b75;
+    margin-bottom: 8px;
+}
+
+/* Nav Buttons */
+.nav-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+.nav-btn {
+    flex: 1;
+    padding: 12px 0;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: 600;
+    color: white;
+}
+.kakao-map { background-color: #FEE500; color: #000; }
+.naver-map { background-color: #03C75A; }
+.t-map { background-color: #333; }
+
+/* Footer */
+.footer {
+    padding: 40px 20px;
+    text-align: center;
+    background-color: #eee;
+    color: #888;
+    font-size: 12px;
+}
