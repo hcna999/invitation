@@ -158,8 +158,8 @@ const closeRsvp = document.querySelector('.close-rsvp');
 const rsvpForm = document.getElementById('rsvp-form');
 const submitBtn = document.getElementById('submit-btn');
 
-// TODO: 구글 스프레드시트 앱스 스크립트 배포 후 나오는 Web App URL을 여기에 붙여넣으세요.
-const GOOGLE_SCRIPT_URL = ""; 
+// 구글 스프레드시트 앱스 스크립트 Web App URL
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz2V1zOyrmfbfAxZxGuOdhsGT7H8YRkGAltT6lhhQ6CxbUVZvE1AhFyCffFYyEz0ag/exec"; 
 
 if (rsvpBtn && rsvpModal && closeRsvp) {
     rsvpBtn.addEventListener('click', () => {
