@@ -25,10 +25,22 @@ document.addEventListener("DOMContentLoaded", function() {
     
     let currentIndex = 0;
 
-    function showImage(index) {
+    function showImage(index, direction = 'next') {
         if (index < 0) index = galleryItems.length - 1;
         if (index >= galleryItems.length) index = 0;
         currentIndex = index;
+        
+        // 애니메이션 초기화 후 재시작 (Reflow 트릭)
+        modalImg.classList.remove('slide-in-right', 'slide-in-left');
+        void modalImg.offsetWidth;
+        
+        // 스와이프 방향에 따른 애니메이션 클래스 추가
+        if (direction === 'next') {
+            modalImg.classList.add('slide-in-right');
+        } else {
+            modalImg.classList.add('slide-in-left');
+        }
+
         modalImg.src = galleryItems[currentIndex].src;
     }
 
