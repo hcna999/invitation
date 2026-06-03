@@ -150,3 +150,61 @@ function copySchedulePrompt() {
 
     document.body.removeChild(textArea);
 }
+
+// 6. RSVP Form Handling
+const rsvpBtn = document.getElementById('rsvp-btn');
+const rsvpModal = document.getElementById('rsvp-modal');
+const closeRsvp = document.querySelector('.close-rsvp');
+const rsvpForm = document.getElementById('rsvp-form');
+const submitBtn = document.getElementById('submit-btn');
+
+// TODO: 구글 스프레드시트 앱스 스크립트 배포 후 나오는 Web App URL을 여기에 붙여넣으세요.
+const GOOGLE_SCRIPT_URL = ""; 
+
+if (rsvpBtn && rsvpModal && closeRsvp) {
+    rsvpBtn.addEventListener('click', () => {
+        rsvpModal.style.display = 'block';
+    });
+    closeRsvp.addEventListener('click', () => {
+        rsvpModal.style.display = 'none';
+    });
+    window.addEventListener('click', (e) => {
+        if (e.target == rsvpModal) {
+            rsvpModal.style.display = 'none';
+        }
+    });
+}
+
+if (rsvpForm) {
+    rsvpForm.addEventListener('submit', e => {
+        e.preventDefault();
+        
+        if (!GOOGLE_SCRIPT_URL) {
+            alert('아직 구글 스프레드시트가 연결되지 않았습니다!\n(스크립트 URL 입력이 필요합니다)');
+            return;
+        }
+
+        submitBtn.innerText = '전송 중...';
+        submitBtn.disabled = true;
+
+        const formData = new FormData(rsvpForm);
+        
+        fetch(GOOGLE_SCRIPT_URL, {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => {
+            alert('소중한 마음이 잘 전달되었습니다. 감사합니다!');
+            rsvpModal.style.display = 'none';
+            rsvpForm.reset();
+        })
+        .catch(error => {
+            alert('전송에 실패했습니다. 다시 시도해 주세요.');
+            console.error('Error!', error.message);
+        })
+        .finally(() => {
+            submitBtn.innerText = '전송하기';
+            submitBtn.disabled = false;
+        });
+    });
+}

@@ -313,7 +313,51 @@
         </div>
     </section>
 
-    <!-- 6 page: AI Credit -->
+    <!-- 6 page: 방명록 및 참석여부 (RSVP) -->
+    <section id="rsvp" class="section rsvp-section fade-in">
+        <h3 class="section-title">RSVP</h3>
+        <p class="rsvp-desc">축하해 주시는 모든 분들께 감사드립니다.<br>원활한 예식 진행을 위해 참석 여부를 전달해 주시면<br>큰 도움이 됩니다.</p>
+        <button class="rsvp-open-btn" id="rsvp-btn">참석 의사 전달하기</button>
+    </section>
+
+    <!-- RSVP Modal -->
+    <div id="rsvp-modal" class="modal rsvp-modal">
+        <div class="rsvp-modal-content">
+            <span class="close-rsvp">&times;</span>
+            <h4 style="margin-top:0; margin-bottom:20px; color:#4a3d34; font-size:20px; text-align:center;">참석 의사 전달</h4>
+            <form id="rsvp-form">
+                <div class="form-group">
+                    <label>구분</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="side" value="신랑측" required> 신랑측</label>
+                        <label><input type="radio" name="side" value="신부측" required> 신부측</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>성함</label>
+                    <input type="text" name="name" placeholder="이름을 입력해주세요" required>
+                </div>
+                <div class="form-group">
+                    <label>참석 여부</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="attendance" value="참석" required> 참석</label>
+                        <label><input type="radio" name="attendance" value="불참" required> 불참</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>동행인 수 (본인 제외)</label>
+                    <input type="number" name="companion" value="0" min="0" max="10">
+                </div>
+                <div class="form-group">
+                    <label>축하 메시지 (방명록)</label>
+                    <textarea name="message" rows="3" placeholder="축하의 한마디를 남겨주세요!"></textarea>
+                </div>
+                <button type="submit" class="submit-btn" id="submit-btn">전송하기</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 7 page: AI Credit -->
     <section id="ai-credit" style="padding: 20px 0 40px 0; text-align: center;">
         <p style="color: #bbb; font-size: 11px; margin: 0;">
             이 모바일 청첩장은 신랑신부가 생성형 AI 툴을 활용하여 제작하였습니다.
