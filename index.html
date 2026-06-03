@@ -46,6 +46,101 @@
             <h4>2026년 09월 20일 (일) 오후 2시</h4>
             <p>라도무스 3층 아트리움홀</p>
             
+            <!-- 달력 영역 -->
+            <div class="calendar-container">
+                <div class="calendar-header">
+                    <span>2026. 09</span>
+                </div>
+                <table class="calendar-table">
+                    <thead>
+                        <tr>
+                            <th class="sun">일</th>
+                            <th>월</th>
+                            <th>화</th>
+                            <th>수</th>
+                            <th>목</th>
+                            <th>금</th>
+                            <th class="sat">토</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>3</td>
+                            <td>4</td>
+                            <td class="sat">5</td>
+                        </tr>
+                        <tr>
+                            <td class="sun">6</td>
+                            <td>7</td>
+                            <td>8</td>
+                            <td>9</td>
+                            <td>10</td>
+                            <td>11</td>
+                            <td class="sat">12</td>
+                        </tr>
+                        <tr>
+                            <td class="sun">13</td>
+                            <td>14</td>
+                            <td>15</td>
+                            <td>16</td>
+                            <td>17</td>
+                            <td>18</td>
+                            <td class="sat">19</td>
+                        </tr>
+                        <tr>
+                            <td class="sun">
+                                <div class="d-day-highlight">20</div>
+                            </td>
+                            <td>21</td>
+                            <td>22</td>
+                            <td>23</td>
+                            <td>24</td>
+                            <td>25</td>
+                            <td class="sat">26</td>
+                        </tr>
+                        <tr>
+                            <td class="sun">27</td>
+                            <td>28</td>
+                            <td>29</td>
+                            <td>30</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- 디데이 카운트다운 영역 -->
+            <div class="countdown-container">
+                <p class="countdown-title">나학채 <span class="heart">♥</span> 노영아의 결혼식까지</p>
+                <div class="countdown-timer">
+                    <div class="time-box">
+                        <span id="d-days">00</span>
+                        <span class="time-label">Days</span>
+                    </div>
+                    <span class="colon">:</span>
+                    <div class="time-box">
+                        <span id="d-hours">00</span>
+                        <span class="time-label">Hour</span>
+                    </div>
+                    <span class="colon">:</span>
+                    <div class="time-box">
+                        <span id="d-mins">00</span>
+                        <span class="time-label">Min</span>
+                    </div>
+                    <span class="colon">:</span>
+                    <div class="time-box">
+                        <span id="d-secs">00</span>
+                        <span class="time-label">Sec</span>
+                    </div>
+                </div>
+            </div>
+
             <button class="ai-schedule-btn" onclick="copySchedulePrompt()">📅 일정 추가하기 (복사)</button>
             <p class="ai-desc">버튼을 눌러 복사한 뒤, 제미나이나 GPT에게 붙여넣기 하시면 캘린더에 일정을 추가해 줍니다.</p>
         </div>

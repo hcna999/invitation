@@ -148,12 +148,10 @@ body {
 }
 
 .date-time-box {
-    background: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    margin-top: 40px;
+    padding-top: 30px;
+    border-top: 1px solid #f1ebd8;
 }
-
 .date-time-box h4 {
     font-size: 18px;
     color: #d19b75;

@@ -54,6 +54,35 @@ document.addEventListener("DOMContentLoaded", function() {
             } 
         });
     });
+
+    // 4. D-Day Countdown Timer
+    const weddingDate = new Date("2026-09-20T14:00:00").getTime();
+    
+    function updateCountdown() {
+        const now = new Date().getTime();
+        const distance = weddingDate - now;
+
+        if (distance < 0) {
+            document.getElementById("d-days").innerText = "00";
+            document.getElementById("d-hours").innerText = "00";
+            document.getElementById("d-mins").innerText = "00";
+            document.getElementById("d-secs").innerText = "00";
+            return;
+        }
+
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        document.getElementById("d-days").innerText = String(days).padStart(2, '0');
+        document.getElementById("d-hours").innerText = String(hours).padStart(2, '0');
+        document.getElementById("d-mins").innerText = String(minutes).padStart(2, '0');
+        document.getElementById("d-secs").innerText = String(seconds).padStart(2, '0');
+    }
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown(); // Initial call
 });
 
 // 4. Copy Account Number Function
