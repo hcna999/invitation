@@ -361,12 +361,12 @@ function createFallingHeart() {
     const startPos = Math.random() * 100; // 0 ~ 100% 가로 위치
     const duration = Math.random() * 4 + 4; // 4초 ~ 8초 사이로 천천히 떨어짐
     const size = Math.random() * 6 + 10; // 10px ~ 16px 크기
-    const opacity = Math.random() * 0.4 + 0.3; // 0.3 ~ 0.7 투명도
+    const opacity = Math.random() * 0.5 + 0.5; // 0.5 ~ 1.0 투명도 (더 또렷하게)
 
     heart.style.left = `${startPos}%`;
     heart.style.animationDuration = `${duration}s`;
     heart.style.fontSize = `${size}px`;
-    heart.style.color = `rgba(255, 182, 193, ${opacity})`;
+    heart.style.color = `rgba(255, 120, 150, ${opacity})`; // 조금 더 채도 있는 선명한 핑크색
 
     container.appendChild(heart);
 
