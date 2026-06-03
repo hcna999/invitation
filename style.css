@@ -823,3 +823,29 @@ body {
 .gb-submit-btn:disabled {
     background-color: #ccc;
 }
+
+/* Guestbook Delete Button */
+.msg-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+}
+.msg-author {
+    font-weight: 600;
+    color: #4a3d34;
+    font-size: 14px;
+    margin: 0;
+}
+.msg-delete-btn {
+    background: none;
+    border: none;
+    color: #ccc;
+    font-size: 13px;
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+}
+.msg-delete-btn:hover {
+    color: #d9534f;
+}

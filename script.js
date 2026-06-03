@@ -195,7 +195,10 @@ function loadGuestbook() {
                     const sideHtml = safeSide ? ` <span style="font-size:11px; color:#d19b75; font-weight:normal;">(${safeSide})</span>` : '';
                     
                     card.innerHTML = `
-                        <p class="msg-author">${safeName}${sideHtml}</p>
+                        <div class="msg-header">
+                            <p class="msg-author">${safeName}${sideHtml}</p>
+                            <button class="msg-delete-btn" onclick="deleteMessage('${msg.timestamp}')">✕ 삭제</button>
+                        </div>
                         <p class="msg-text">${safeMsg}</p>
                         <p class="msg-date">${dateStr}</p>
                     `;
@@ -295,5 +298,52 @@ if (rsvpForm) {
             submitBtn.innerText = '전송하기';
             submitBtn.disabled = false;
         });
+    });
+}
+
+// 5) 방명록 삭제 요청 로직
+function deleteMessage(timestamp) {
+    const pwd = prompt("방명록 작성 시 입력한 숫자 4자리 비밀번호를 입력해주세요.\n(삭제를 원치 않으시면 취소를 눌러주세요.)");
+    if (pwd === null) return; // 취소 누름
+    if (pwd.trim() === "") {
+        alert("비밀번호를 입력해주세요.");
+        return;
+    }
+
+    if (!confirm("정말 이 메시지를 삭제하시겠습니까?")) return;
+
+    // 삭제 버튼들 비활성화 (다중 클릭 방지)
+    const delBtns = document.querySelectorAll('.msg-delete-btn');
+    delBtns.forEach(btn => btn.disabled = true);
+
+    const formData = new FormData();
+    formData.append("action", "delete");
+    formData.append("timestamp", timestamp);
+    formData.append("password", pwd);
+
+    const urlEncodedData = new URLSearchParams(formData).toString();
+
+    fetch(GOOGLE_SCRIPT_URL, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: urlEncodedData
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.result === 'success') {
+            alert('메시지가 성공적으로 삭제되었습니다.');
+            loadGuestbook(); // 게시판 새로고침
+        } else {
+            alert(data.message || '비밀번호가 틀렸거나 삭제에 실패했습니다.');
+        }
+    })
+    .catch(err => {
+        alert('삭제 중 오류가 발생했습니다. 인터넷 연결을 확인해주세요.');
+        console.error(err);
+    })
+    .finally(() => {
+        delBtns.forEach(btn => btn.disabled = false);
     });
 }
