@@ -20,8 +20,6 @@ document.addEventListener("DOMContentLoaded", function() {
     const modalImg = document.getElementById("modal-img");
     const galleryItems = Array.from(document.querySelectorAll(".gallery-item"));
     const closeModal = document.querySelector(".close-modal");
-    const prevBtn = document.querySelector(".prev-btn");
-    const nextBtn = document.querySelector(".next-btn");
     
     let currentIndex = 0;
 
@@ -29,6 +27,10 @@ document.addEventListener("DOMContentLoaded", function() {
         if (index < 0) index = galleryItems.length - 1;
         if (index >= galleryItems.length) index = 0;
         currentIndex = index;
+        
+        // 드래그로 변경된 인라인 스타일 초기화
+        modalImg.style.transform = '';
+        modalImg.style.transition = '';
         
         // 애니메이션 초기화 후 재시작 (Reflow 트릭)
         modalImg.classList.remove('slide-in-right', 'slide-in-left');
@@ -47,7 +49,7 @@ document.addEventListener("DOMContentLoaded", function() {
     galleryItems.forEach((item, index) => {
         item.addEventListener("click", function() {
             modal.style.display = "block";
-            showImage(index);
+            showImage(index, 'next');
         });
     });
 
@@ -61,38 +63,44 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
-    prevBtn.addEventListener("click", (e) => {
-        e.stopPropagation();
-        showImage(currentIndex - 1);
-    });
-
-    nextBtn.addEventListener("click", (e) => {
-        e.stopPropagation();
-        showImage(currentIndex + 1);
-    });
-
-    // Touch events for swiping
+    // Touch events for swiping (Interactive Slide)
     let touchStartX = 0;
-    let touchEndX = 0;
+    let isDragging = false;
 
-    modal.addEventListener('touchstart', e => {
+    modalImg.addEventListener('touchstart', e => {
         touchStartX = e.changedTouches[0].screenX;
+        isDragging = true;
+        modalImg.style.transition = 'none'; // 드래그 중 부드러운 움직임을 위해 트랜지션 끄기
+        modalImg.classList.remove('slide-in-right', 'slide-in-left'); // 기존 애니메이션 해제
     });
 
-    modal.addEventListener('touchend', e => {
-        touchEndX = e.changedTouches[0].screenX;
-        handleSwipe();
+    modalImg.addEventListener('touchmove', e => {
+        if (!isDragging) return;
+        const currentX = e.changedTouches[0].screenX;
+        const deltaX = currentX - touchStartX;
+        modalImg.style.transform = `translateX(${deltaX}px)`; // 손가락 따라 사진 이동
     });
 
-    function handleSwipe() {
-        const swipeThreshold = 50;
-        if (touchEndX < touchStartX - swipeThreshold) {
-            showImage(currentIndex + 1); // Swipe left -> Next
+    modalImg.addEventListener('touchend', e => {
+        if (!isDragging) return;
+        isDragging = false;
+        
+        const touchEndX = e.changedTouches[0].screenX;
+        const deltaX = touchEndX - touchStartX;
+        const swipeThreshold = 50; // 이만큼 움직여야 넘어감
+        
+        if (deltaX < -swipeThreshold) {
+            // 왼쪽으로 스와이프 (다음 사진)
+            showImage(currentIndex + 1, 'next');
+        } else if (deltaX > swipeThreshold) {
+            // 오른쪽으로 스와이프 (이전 사진)
+            showImage(currentIndex - 1, 'prev');
+        } else {
+            // 원위치 복귀 (조금만 움직였을 때)
+            modalImg.style.transition = 'transform 0.3s ease-out';
+            modalImg.style.transform = 'translateX(0)';
         }
-        if (touchEndX > touchStartX + swipeThreshold) {
-            showImage(currentIndex - 1); // Swipe right -> Prev
-        }
-    }
+    });
 
     // 3. Accordion for Account Numbers
     const accordions = document.querySelectorAll(".accordion");
