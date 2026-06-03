@@ -151,16 +151,66 @@ function copySchedulePrompt() {
     document.body.removeChild(textArea);
 }
 
-// 6. RSVP Form Handling
+// 6. RSVP & Guestbook Handling
 const rsvpBtn = document.getElementById('rsvp-btn');
 const rsvpModal = document.getElementById('rsvp-modal');
 const closeRsvp = document.querySelector('.close-rsvp');
 const rsvpForm = document.getElementById('rsvp-form');
 const submitBtn = document.getElementById('submit-btn');
+const guestbookMessages = document.getElementById('guestbook-messages');
 
-// Formspree API URL
-const FORMSPREE_URL = "https://formspree.io/f/mzdqpjlv"; 
+// 구글 스프레드시트 Web App URL
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzA52K_ElrNdar11nP-_cPmXTH53OlMX2Tb30ftBSAL4IXsAEUh0KQrtHKCVAcwT1c/exec"; 
 
+// 1) 실시간 방명록 불러오기 (GET)
+function loadGuestbook() {
+    if (!guestbookMessages) return;
+    
+    guestbookMessages.innerHTML = '<p style="text-align:center; font-size:13px; color:#aaa; padding:20px;">방명록을 불러오는 중입니다...</p>';
+    
+    fetch(GOOGLE_SCRIPT_URL)
+        .then(res => res.json())
+        .then(resData => {
+            if (resData.result === 'success' && resData.data) {
+                const messages = resData.data;
+                if (messages.length === 0) {
+                    guestbookMessages.innerHTML = '<p style="text-align:center; font-size:13px; color:#aaa; padding:20px;">아직 작성된 메시지가 없습니다. 첫 번째 축하를 남겨주세요!</p>';
+                    return;
+                }
+                
+                guestbookMessages.innerHTML = '';
+                messages.forEach(msg => {
+                    const dateObj = new Date(msg.timestamp);
+                    const dateStr = !isNaN(dateObj) ? `${dateObj.getFullYear()}.${String(dateObj.getMonth()+1).padStart(2,'0')}.${String(dateObj.getDate()).padStart(2,'0')}` : '';
+                    
+                    const card = document.createElement('div');
+                    card.className = 'message-card';
+                    // XSS 방지를 위해 textContent 활용 또는 단순 이스케이프 (여기선 안전하게 텍스트만)
+                    const safeName = msg.name.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+                    const safeSide = msg.side.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+                    const safeMsg = msg.message.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\n/g, '<br>');
+                    
+                    card.innerHTML = `
+                        <p class="msg-author">${safeName} <span style="font-size:11px; color:#d19b75; font-weight:normal;">(${safeSide})</span></p>
+                        <p class="msg-text">${safeMsg}</p>
+                        <p class="msg-date">${dateStr}</p>
+                    `;
+                    guestbookMessages.appendChild(card);
+                });
+            } else {
+                guestbookMessages.innerHTML = '<p style="text-align:center; font-size:13px; color:#aaa; padding:20px;">방명록 데이터를 아직 불러올 수 없습니다.</p>';
+            }
+        })
+        .catch(err => {
+            console.error(err);
+            guestbookMessages.innerHTML = '<p style="text-align:center; font-size:13px; color:#aaa; padding:20px;">* 방명록 실시간 연동 대기 중입니다.</p>';
+        });
+}
+
+// 1-1) 초기 로딩 시 호출
+loadGuestbook();
+
+// 2) 팝업 모달 열기/닫기
 if (rsvpBtn && rsvpModal && closeRsvp) {
     rsvpBtn.addEventListener('click', () => {
         rsvpModal.style.display = 'block';
@@ -175,6 +225,7 @@ if (rsvpBtn && rsvpModal && closeRsvp) {
     });
 }
 
+// 3) RSVP 폼 전송 (POST)
 if (rsvpForm) {
     rsvpForm.addEventListener('submit', e => {
         e.preventDefault();
@@ -183,25 +234,25 @@ if (rsvpForm) {
         submitBtn.disabled = true;
 
         const formData = new FormData(rsvpForm);
+        const urlEncodedData = new URLSearchParams(formData).toString();
         
-        fetch(FORMSPREE_URL, {
+        fetch(GOOGLE_SCRIPT_URL, {
             method: 'POST',
             headers: {
-                'Accept': 'application/json'
+                'Content-Type': 'application/x-www-form-urlencoded'
             },
-            body: formData
+            body: urlEncodedData
         })
         .then(response => {
-            if (response.ok) {
-                alert('소중한 마음이 잘 전달되었습니다. 감사합니다!');
-                rsvpModal.style.display = 'none';
-                rsvpForm.reset();
-            } else {
-                alert('전송에 실패했습니다. 입력 항목을 다시 확인해 주세요.');
-            }
+            alert('소중한 마음이 잘 전달되었습니다. 감사합니다!');
+            rsvpModal.style.display = 'none';
+            rsvpForm.reset();
+            
+            // 전송 완료 후 방명록 즉시 새로고침
+            loadGuestbook();
         })
         .catch(error => {
-            alert('인터넷 연결 오류로 전송에 실패했습니다.');
+            alert('전송에 실패했습니다. 인터넷 연결을 확인해 주세요.');
             console.error('Error!', error);
         })
         .finally(() => {
