@@ -880,3 +880,8 @@ body {
         opacity: 0;
     }
 }
+
+/* 섹션 구분 배경색 */
+.guestbook-section, .account-section {
+    background-color: #f9f6f0;
+}
