@@ -882,6 +882,9 @@ body {
 }
 
 /* 섹션 구분 배경색 */
-.guestbook-section, .account-section {
-    background-color: #f9f6f0;
+.guestbook-section {
+    background-color: #fdfaf6; /* 아주 연하고 따뜻한 크림 베이지 */
+}
+.account-section {
+    background-color: #f4f5f3; /* 아주 연하고 차분한 소프트 웜그레이 */
 }
