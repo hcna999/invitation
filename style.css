@@ -424,6 +424,14 @@ body {
     background-color: #e2e2e2;
 }
 
+.groom-accordion {
+    color: #4a6fa5; /* 차분하고 고급스러운 파스텔 블루 */
+}
+
+.bride-accordion {
+    color: #c97a8b; /* 차분하고 고급스러운 파스텔 핑크 */
+}
+
 .panel {
     padding: 0 18px;
     background-color: white;
